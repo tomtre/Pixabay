@@ -28,6 +28,7 @@ java {
 dependencies {
     compileOnly(libs.android.gradlePlugin)
     compileOnly(libs.kotlin.gradlePlugin)
+    compileOnly(libs.ksp.gradlePlugin)
 }
 
 gradlePlugin {
@@ -63,6 +64,22 @@ gradlePlugin {
         register("androidHilt") {
             id = "android.hilt"
             implementationClass = "plugin.AndroidHiltConventionPlugin"
+        }
+        register("androidFlavors") {
+            id = "android.application.flavors"
+            implementationClass = "plugin.AndroidApplicationFlavorsConventionPlugin"
+        }
+        register("androidFeature") {
+            id = "android.feature"
+            implementationClass = "AndroidFeatureConventionPlugin"
+        }
+        register("androidRoom") {
+            id = "android.room"
+            implementationClass = "AndroidRoomConventionPlugin"
+        }
+        register("jvmLibrary") {
+            id = "jvm.library"
+            implementationClass = "JvmLibraryConventionPlugin"
         }
     }
 }

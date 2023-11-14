@@ -3,6 +3,7 @@
 plugins {
     id("android.application")
     id("android.application.compose")
+    id("android.application.flavors")
     id("android.hilt")
     alias(libs.plugins.junit5)
 }
@@ -24,9 +25,12 @@ android {
 
     buildTypes {
         val debug by getting {
+            isDebuggable = true
+            isMinifyEnabled = false
             applicationIdSuffix = PixabayBuildType.DEBUG.applicationIdSuffix
         }
         val release by getting {
+            isDebuggable = false
             isMinifyEnabled = true
             applicationIdSuffix = PixabayBuildType.RELEASE.applicationIdSuffix
             proguardFiles(
@@ -35,9 +39,17 @@ android {
             )
             signingConfig = signingConfigs.getByName("debug")
         }
+        val staging by creating {
+            initWith(release)
+            matchingFallbacks.add("release")
+            applicationIdSuffix = PixabayBuildType.STAGING.applicationIdSuffix
+            isDebuggable = true
+            isMinifyEnabled = true
+            signingConfig = signingConfigs.getByName("debug")
+        }
     }
 
-    packagingOptions {
+    packaging {
         resources {
             excludes.add("/META-INF/{AL2.0,LGPL2.1}")
         }
@@ -83,8 +95,8 @@ val checkReleaseVersion by tasks.registering {
         if (versionName?.matches("\\d+(\\.\\d+)+".toRegex()) == false) {
             throw GradleException(
                 "Version name for release builds can only be numeric (like 1.0), but was $versionName\n" +
-                        "Please use git tag to set version name on the current commit and try again\n" +
-                        "For example: git tag -a 1.0 -m 'v1.0'"
+                    "Please use git tag to set version name on the current commit and try again\n" +
+                    "For example: git tag -a 1.0 -m 'v1.0'"
             )
         }
     }
