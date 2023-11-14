@@ -37,6 +37,9 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            // To publish on the Play store a private signing key is required, but to allow anyone
+            // who clones the code to sign and run the release variant, use the debug signing key.
+            // TODO: Abstract the signing configuration to a separate file to avoid hardcoding this.
             signingConfig = signingConfigs.getByName("debug")
         }
         val staging by creating {
@@ -95,8 +98,8 @@ val checkReleaseVersion by tasks.registering {
         if (versionName?.matches("\\d+(\\.\\d+)+".toRegex()) == false) {
             throw GradleException(
                 "Version name for release builds can only be numeric (like 1.0), but was $versionName\n" +
-                    "Please use git tag to set version name on the current commit and try again\n" +
-                    "For example: git tag -a 1.0 -m 'v1.0'"
+                        "Please use git tag to set version name on the current commit and try again\n" +
+                        "For example: git tag -a 1.0 -m 'v1.0'"
             )
         }
     }

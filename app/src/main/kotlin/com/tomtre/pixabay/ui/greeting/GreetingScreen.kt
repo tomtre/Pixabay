@@ -21,6 +21,6 @@ fun Greeting(name: String) {
 
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview() {
+private fun DefaultPreview() {
     PixabayTheme { GreetingScreen() }
 }
