@@ -1,4 +1,4 @@
-package com.tomtre.pixabay.ui.common
+package com.tomtre.pixabay.core.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -16,7 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
-import com.tomtre.pixabay.ui.common.theme.Dimens
+import com.tomtre.core.designsystem.theme.Dimens
 
 @Composable
 fun AppScreen(

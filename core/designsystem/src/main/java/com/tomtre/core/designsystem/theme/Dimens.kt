@@ -1,4 +1,4 @@
-package com.tomtre.pixabay.ui.common.theme
+package com.tomtre.core.designsystem.theme
 
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp

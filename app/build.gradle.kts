@@ -61,6 +61,11 @@ android {
 }
 
 dependencies {
+    implementation(project(":feature:home"))
+    implementation(project(":feature:details"))
+
+    implementation(project(":core:designsystem"))
+
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
@@ -98,8 +103,8 @@ val checkReleaseVersion by tasks.registering {
         if (versionName?.matches("\\d+(\\.\\d+)+".toRegex()) == false) {
             throw GradleException(
                 "Version name for release builds can only be numeric (like 1.0), but was $versionName\n" +
-                        "Please use git tag to set version name on the current commit and try again\n" +
-                        "For example: git tag -a 1.0 -m 'v1.0'"
+                    "Please use git tag to set version name on the current commit and try again\n" +
+                    "For example: git tag -a 1.0 -m 'v1.0'"
             )
         }
     }

@@ -1,4 +1,4 @@
-package com.tomtre.pixabay.ui.common.theme
+package com.tomtre.core.designsystem.theme
 
 import android.app.Activity
 import android.os.Build
@@ -24,7 +24,7 @@ private val DarkColorScheme = darkColorScheme(
 private val LightColorScheme = lightColorScheme(
     primary = Purple40,
     secondary = PurpleGrey40,
-    tertiary = Pink40,
+    tertiary = Pink40
 //    background = Color.White,
 //    surface = Color(0xFFFFFBFE),
 //    onPrimary = Color.White,

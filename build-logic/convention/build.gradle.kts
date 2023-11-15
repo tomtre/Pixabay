@@ -71,15 +71,15 @@ gradlePlugin {
         }
         register("androidFeature") {
             id = "android.feature"
-            implementationClass = "AndroidFeatureConventionPlugin"
+            implementationClass = "plugin.AndroidFeatureConventionPlugin"
         }
         register("androidRoom") {
             id = "android.room"
-            implementationClass = "AndroidRoomConventionPlugin"
+            implementationClass = "plugin.AndroidRoomConventionPlugin"
         }
         register("jvmLibrary") {
             id = "jvm.library"
-            implementationClass = "JvmLibraryConventionPlugin"
+            implementationClass = "plugin.JvmLibraryConventionPlugin"
         }
     }
 }
