@@ -65,6 +65,7 @@ dependencies {
     implementation(project(":feature:details"))
 
     implementation(project(":core:designsystem"))
+    implementation(project(":core:common"))
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)
@@ -78,7 +79,6 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.testManifest)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.navigation.compose)
-    implementation(libs.timber)
 
     testImplementation(libs.junit5.api)
     testRuntimeOnly(libs.junit5.engine)
