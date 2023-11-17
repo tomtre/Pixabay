@@ -52,6 +52,7 @@ junit = "1.1.5"
 material = "1.10.0" # https://github.com/appKODE/detekt-rules-compose
 ktor = "2.3.4" # https://github.com/ktorio/ktor/releases
 arrow = "1.1.5" # https://github.com/arrow-kt/arrow/releases
+stateInMerge = "1.1.0"
 
 [libraries]
 accompanist-flowlayout = { group = "com.google.accompanist", name = "accompanist-flowlayout", version.ref = "accompanist" }
@@ -131,6 +132,7 @@ ktor-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = 
 ktor-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-serialization = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
 arrow-core = { group = "io.arrow-kt", name = "arrow-core", version.ref = "arrow" }
+stateinmerge = { group = "com.tomczyn", name = "state-in-merge", version.ref = "stateInMerge" }
 
 # Dependencies of the included build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }

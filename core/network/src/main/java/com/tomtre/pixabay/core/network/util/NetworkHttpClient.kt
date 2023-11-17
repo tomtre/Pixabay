@@ -45,8 +45,8 @@ fun NetworkHttpClient(apiUrl: String, apiKey: String): HttpClient =
         }
         defaultRequest {
             contentType(ContentType.Application.Json)
+            url(apiUrl)
             url {
-                host = apiUrl
                 parameters.append("key", apiKey)
             }
         }
