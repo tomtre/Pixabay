@@ -18,6 +18,8 @@ dependencies {
     api(libs.androidx.compose.ui.tooling.preview)
     api(libs.androidx.compose.ui.util)
 
+    debugApi(libs.androidx.compose.ui.tooling)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.coil.kt.compose)
 }

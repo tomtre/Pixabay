@@ -21,6 +21,7 @@ fun List<NetworkHit>.toDomainImageDetails(): List<ImageDetails> =
 fun NetworkHit.toDomainImage(): Image =
     Image(
         id = id,
+        userName = user,
         tags = tags,
         previewURL = previewURL
     )
