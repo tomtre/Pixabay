@@ -12,11 +12,11 @@ class NetworkDataSourceImpl @Inject constructor(
     private val httpClient: HttpClient
 ) : NetworkDataSource {
 
-    override suspend fun getImages(query: String?): Response<CustomApiErrorResponse, ImagesResponse> =
+    override suspend fun getImages(query: String?, page: Int?, loadSize: Int?): Response<CustomApiErrorResponse, ImagesResponse> =
         httpClient.get {
-            query?.let {
-                parameter("query", it)
-            }
+            parameter("q", query)
+            parameter("page", page)
+            parameter("per_page", loadSize)
         }
 
     override suspend fun getImage(id: Int): Response<CustomApiErrorResponse, ImagesResponse> =

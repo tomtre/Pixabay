@@ -48,10 +48,11 @@ fun NetworkHttpClient(apiUrl: String, apiKey: String): HttpClient =
             url(apiUrl)
             url {
                 parameters.append("key", apiKey)
+//                if (BuildConfig.DEBUG) parameters.append("pretty", "true")
             }
         }
         @Suppress("MagicNumber")
         install(HttpTimeout) {
-            requestTimeoutMillis = 5000L
+            requestTimeoutMillis = 5_000L
         }
     }
