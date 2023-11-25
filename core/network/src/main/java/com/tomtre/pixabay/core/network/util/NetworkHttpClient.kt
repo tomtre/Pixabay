@@ -27,6 +27,7 @@ fun NetworkHttpClient(apiUrl: String, apiKey: String): HttpClient =
                 }
             }
             level = if (BuildConfig.DEBUG) LogLevel.ALL else LogLevel.NONE
+            level = if (BuildConfig.DEBUG) LogLevel.INFO else LogLevel.NONE
         }
         install(ContentNegotiation) {
             json(

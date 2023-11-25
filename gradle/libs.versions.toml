@@ -136,9 +136,9 @@ ktor-serialization = { group = "io.ktor", name = "ktor-serialization-kotlinx-jso
 arrow-core = { group = "io.arrow-kt", name = "arrow-core", version.ref = "arrow" }
 stateinmerge = { group = "com.tomczyn", name = "state-in-merge", version.ref = "stateInMerge" }
 androidx-paging-common-ktx = { group = "androidx.paging", name = "paging-common-ktx", version.ref = "androidxPaging" }
-#androidx-paging-runtime = { group = "androidx.paging", name = "paging-runtime", version.ref = "androidxPaging" }
 androidx-paging-runtime-ktx = { group = "androidx.paging", name = "paging-runtime-ktx", version.ref = "androidxPaging" }
 androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "androidxPaging" }
+androidx-room-paging = { group = "androidx.room", name = "room-paging", version.ref = "room" }
 
 # Dependencies of the included build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }

@@ -8,7 +8,6 @@ import com.tomtre.pixabay.core.model.Image
 import com.tomtre.pixabay.core.network.NetworkDataSource
 import timber.log.Timber
 
-
 class ImagePagingSource(
     private val query: String?,
     private val networkDataSource: NetworkDataSource
@@ -17,9 +16,7 @@ class ImagePagingSource(
     override fun getRefreshKey(state: PagingState<Int, Image>): Int? {
         Timber.d("ImagePagingSource getRefreshKey() state: $state")
 
-
         state.anchorPosition?.let {
-
             Timber.d("ImagePagingSource getRefreshKey() closest page to position: ${state.closestPageToPosition(it)}")
         }
 
@@ -50,7 +47,6 @@ class ImagePagingSource(
                     LoadResult.Page(
                         data = items.toDomainImage(),
                         prevKey = if (position == STARTING_PAGE_INDEX) null else position - 1,
-                        // TODO Documentation is unclear, can't calculate based multiplication of current page and loadSize.
                         nextKey = nextKey
                     )
                 }

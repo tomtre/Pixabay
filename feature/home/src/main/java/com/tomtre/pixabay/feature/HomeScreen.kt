@@ -1,5 +1,7 @@
 package com.tomtre.pixabay.feature
 
+import android.widget.Toast
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,6 +17,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -23,6 +26,7 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
+import com.tomtre.pixabay.core.model.CustomError
 import com.tomtre.pixabay.core.model.Image
 import com.tomtre.pixabay.core.ui.AppScreen
 import com.tomtre.pixabay.feature.ui.ImageListItem
@@ -45,7 +49,6 @@ internal fun HomeRoute(
     AppScreen {
         HomeScreen(uiState, imageItems, viewModel::onImageItemClick, viewModel::refresh)
     }
-
 }
 
 @Composable
@@ -62,7 +65,6 @@ private fun HomeScreen(
         }
 
         Box(modifier = modifier.fillMaxSize()) {
-
             if (imageItems.loadState.refresh is LoadState.Loading) {
                 CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
             } else {
@@ -80,9 +82,13 @@ private fun HomeScreen(
                         count = imageItems.itemCount,
                         key = imageItems.itemKey { it.id }
                     ) { index ->
-
                         imageItems[index]?.let { image ->
-                            ImageListItem(previewUrl = image.previewURL, userName = image.userName, tags = image.tags)
+                            ImageListItem(
+                                previewUrl = image.previewURL,
+                                userName = image.userName,
+                                tags = image.tags,
+                                modifier = modifier.clickable { onImageItemClick(image.id) }
+                            )
                         }
                     }
                     if (imageItems.loadState.append is LoadState.Loading) {
@@ -92,7 +98,29 @@ private fun HomeScreen(
                     }
                 }
             }
-        }
+
+            // TODO testing, rewrite
+            val loadState = imageItems.loadState
+            val context = LocalContext.current
+            LaunchedEffect(key1 = loadState) {
+                val errorState = loadState.source.append as? LoadState.Error
+                    ?: loadState.source.prepend as? LoadState.Error
+                    ?: loadState.append as? LoadState.Error
+                    ?: loadState.prepend as? LoadState.Error
+                errorState?.let { errorLoadState ->
+                    if (errorLoadState.error is CustomError) {
+                        val message = when (val customError = errorLoadState.error) {
+                            is CustomError.ApiError -> customError.apiMessage
+                            is CustomError.UnknownError -> context.getString(R.string.error_network)
+                            else -> ""
+                        }
+                        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(context, R.string.error_network, Toast.LENGTH_LONG).show()
+                    }
+                }
+            }
+
 //    if (uiState.errorMessage == null) {
 //        PullRefreshLazyList(isLoading = uiState.isLoading, onRefresh = onRefresh, modifier = modifier) {
 //            items(uiState.images, key = { it.id }) { image ->
@@ -113,6 +141,7 @@ private fun HomeScreen(
 //            }
 //        }
 //    }
+        }
     }
 }
 

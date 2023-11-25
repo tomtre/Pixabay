@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val imagesRepository: ImagesRepository,
+    private val imagesRepository: ImagesRepository
 ) : ViewModel() {
 
     private val refreshEvents = MutableBehaviorFlow(Unit)

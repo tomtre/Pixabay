@@ -5,14 +5,14 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class NetworkHit(
+    @SerialName("id")
+    val id: Int,
     @SerialName("collections")
     val collections: Int,
     @SerialName("comments")
     val comments: Int,
     @SerialName("downloads")
     val downloads: Int,
-    @SerialName("id")
-    val id: Int,
     @SerialName("imageHeight")
     val imageHeight: Int,
     @SerialName("imageSize")
