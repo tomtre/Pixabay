@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -21,9 +19,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.tomtre.core.designsystem.component.DynamicAsyncImage
+import com.tomtre.pixabay.core.designsystem.component.DynamicAsyncImage
+import com.tomtre.pixabay.core.designsystem.component.PixabayProgressIndicator
+import com.tomtre.pixabay.core.model.ImageDetails
 import com.tomtre.pixabay.core.ui.AppScreen
-import com.tomtre.pixabay.feature.details.R
+import com.tomtre.pixabay.core.ui.util.UiText
 
 @Composable
 internal fun ImageDetailsRoute(
@@ -43,7 +43,7 @@ private fun ImageDetailsScreen(uiState: ImageDetailsState) {
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            CircularProgressIndicator(modifier = Modifier.width(64.dp))
+            PixabayProgressIndicator()
         }
     }
 
@@ -95,6 +95,33 @@ private fun ImageDetailsScreen(uiState: ImageDetailsState) {
 
 @Preview
 @Composable
-private fun PreviewDetailsScreen() {
-    ImageDetailsScreen(ImageDetailsState())
+private fun PreviewDetailsScreen_Loaded() {
+    val imageDetails = ImageDetails(
+        id = 0,
+        largeImageURL = "url",
+        user = "tom",
+        tags = "window cat sky",
+        likes = 55,
+        downloads = 4534,
+        comments = 44
+    )
+    AppScreen {
+        ImageDetailsScreen(ImageDetailsState(imageDetails = imageDetails))
+    }
+}
+
+@Preview
+@Composable
+private fun PreviewDetailsScreen_Error() {
+    AppScreen {
+        ImageDetailsScreen(ImageDetailsState(error = UiText.of(R.string.error_loading_image_details)))
+    }
+}
+
+@Preview
+@Composable
+private fun PreviewDetailsScreen_Loading() {
+    AppScreen {
+        ImageDetailsScreen(ImageDetailsState(isLoading = true))
+    }
 }

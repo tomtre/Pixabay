@@ -3,10 +3,9 @@ package com.tomtre.pixabay.feature.imagedetails
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tomtre.core.domain.GetImageUseCase
+import com.tomtre.pixabay.core.domain.GetImageUseCase
 import com.tomtre.pixabay.core.model.Result
 import com.tomtre.pixabay.core.ui.util.UiText
-import com.tomtre.pixabay.feature.details.R
 import com.tomtre.pixabay.feature.imagedetails.navigation.ImageDetailsArgs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

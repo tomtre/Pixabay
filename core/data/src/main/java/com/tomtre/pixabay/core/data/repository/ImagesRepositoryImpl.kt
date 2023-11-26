@@ -25,7 +25,6 @@ class ImagesRepositoryImpl @Inject constructor(
 
     @OptIn(ExperimentalPagingApi::class)
     override fun getImagesStream(query: String?): Flow<PagingData<Image>> {
-
         val flow = Pager(
             config = PagingConfig(pageSize = ITEMS_PER_PAGE, enablePlaceholders = false),
             remoteMediator = imageRemoteMediatorFactory.getRemoteMediator(query),

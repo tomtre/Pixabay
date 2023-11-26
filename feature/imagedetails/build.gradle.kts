@@ -1,4 +1,3 @@
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     id("android.feature")
     id("android.library")
@@ -6,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.tomtre.pixabay.feature.details"
+    namespace = "com.tomtre.pixabay.feature.imagedetails"
 }
 
 dependencies {

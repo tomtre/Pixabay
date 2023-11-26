@@ -15,7 +15,6 @@ import com.tomtre.pixabay.core.network.NetworkDataSource
 import com.tomtre.pixabay.core.network.model.CustomApiErrorResponse
 import com.tomtre.pixabay.core.network.model.ImagesResponse
 import com.tomtre.pixabay.core.network.util.RequestError
-import timber.log.Timber
 import javax.inject.Inject
 
 @OptIn(ExperimentalPagingApi::class)
@@ -33,7 +32,6 @@ class ImageRemoteMediator @Inject constructor(
 
     @Suppress("ReturnCount")
     override suspend fun load(loadType: LoadType, state: PagingState<Int, ImageEntity>): MediatorResult {
-        Timber.d("ImageRemoteMediator load() loadType: $loadType state: $state")
         val pageNumber = when (loadType) {
             LoadType.REFRESH -> {
                 val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
@@ -42,31 +40,16 @@ class ImageRemoteMediator @Inject constructor(
 
             LoadType.PREPEND -> {
                 val remoteKeys = getRemoteKeyForFirstItem(state)
-                val prevKey = remoteKeys?.prevKey
-                if (prevKey == null) {
-                    Timber.d(
-                        "ImageRemoteMediator load() PREPEND RemoteKeys or prevKey is null, " +
-                                "returning MediatorResult.Success(endOfPaginationReached = ${remoteKeys != null})"
-                    )
-                    return MediatorResult.Success(endOfPaginationReached = remoteKeys != null)
-                }
+                val prevKey = remoteKeys?.prevKey ?: return MediatorResult.Success(endOfPaginationReached = remoteKeys != null)
                 prevKey
             }
 
             LoadType.APPEND -> {
                 val remoteKeys = getRemoteKeyForLastItem(state)
-                val nextKey = remoteKeys?.nextKey
-                if (nextKey == null) {
-                    Timber.d(
-                        "ImageRemoteMediator load() APPEND RemoteKeys or nextKey is null, " +
-                                "returning MediatorResult.Success(endOfPaginationReached = ${remoteKeys != null})"
-                    )
-                    return MediatorResult.Success(endOfPaginationReached = remoteKeys != null)
-                }
+                val nextKey = remoteKeys?.nextKey ?: return MediatorResult.Success(endOfPaginationReached = remoteKeys != null)
                 nextKey
             }
         }
-        Timber.d("ImageRemoteMediator pageNumber: $pageNumber")
 
         val networkResponse =
             networkDataSource.getImages(query = if (query.isNullOrBlank()) null else query, pageNumber, state.config.pageSize)
@@ -95,7 +78,9 @@ class ImageRemoteMediator @Inject constructor(
             val prevKey = if (pageNumber == PIXABAY_STARTING_PAGE_INDEX) null else pageNumber - 1
             val nextKey = if (endOfPaginationReached) null else pageNumber + 1
             val remoteKeys = images.map { RemoteKeys(imageId = it.id, prevKey = prevKey, nextKey = nextKey) }
-            val imageEntities = images.mapIndexed { index, networkHit -> networkHit.toEntity(popularity = pageNumber * 10 + index) }
+            val imageEntities = images.mapIndexed { index, networkHit ->
+                networkHit.toEntity(popularity = pageNumber * POPULARITY_ID_MULTIPLAYER + index)
+            }
             remoteKeysDao.insertAll(remoteKeys)
             imagesDao.insertAll(imageEntities)
         }
@@ -122,5 +107,6 @@ class ImageRemoteMediator @Inject constructor(
 
     companion object {
         private const val PIXABAY_STARTING_PAGE_INDEX = 1
+        private const val POPULARITY_ID_MULTIPLAYER = 10
     }
 }

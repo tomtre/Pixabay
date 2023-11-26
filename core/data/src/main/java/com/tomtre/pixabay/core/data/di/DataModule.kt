@@ -11,6 +11,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 interface DataModule {
+
     @Binds
     @Singleton
     fun bindsImagesRepository(imagesRepositoryImpl: ImagesRepositoryImpl): ImagesRepository

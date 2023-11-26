@@ -8,8 +8,8 @@ import androidx.navigation.compose.rememberNavController
 import com.tomtre.pixabay.feature.imagedetails.navigation.ImageDetailsArgs
 import com.tomtre.pixabay.feature.imagedetails.navigation.imageDetailsScreen
 import com.tomtre.pixabay.feature.imagedetails.navigation.navigateToImageDetails
-import com.tomtre.pixabay.feature.navigation.homeNavigationRoute
-import com.tomtre.pixabay.feature.navigation.homeScreen
+import com.tomtre.pixabay.feature.imagelist.navigation.imageListNavigationRoute
+import com.tomtre.pixabay.feature.imagelist.navigation.imageListScreen
 
 @Composable
 fun PixabayNavHost(
@@ -19,12 +19,9 @@ fun PixabayNavHost(
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = homeNavigationRoute,
+        startDestination = imageListNavigationRoute,
     ) {
-        // todo handle an argument
-        homeScreen(onNavigateToDetails = { navController.navigateToImageDetails(ImageDetailsArgs(it)) })
+        imageListScreen(onNavigateToDetails = { navController.navigateToImageDetails(ImageDetailsArgs(it)) })
         imageDetailsScreen()
-
     }
 }
-

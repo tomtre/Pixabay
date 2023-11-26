@@ -61,7 +61,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":feature:home"))
+    implementation(project(":feature:imagelist"))
     implementation(project(":feature:imagedetails"))
 
     implementation(project(":core:designsystem"))

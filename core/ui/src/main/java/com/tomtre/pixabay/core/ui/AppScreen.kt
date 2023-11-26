@@ -16,7 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
-import com.tomtre.core.designsystem.theme.Dimens
+import com.tomtre.pixabay.core.designsystem.theme.Dimens
 
 @Composable
 fun AppScreen(
