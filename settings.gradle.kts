@@ -18,7 +18,7 @@ rootProject.name = "Pixabay"
 include(":app")
 include(":feature:home")
 include(":core:ui")
-include(":feature:details")
+include(":feature:imagedetails")
 include(":core:designsystem")
 include(":core:network")
 include(":core:common")

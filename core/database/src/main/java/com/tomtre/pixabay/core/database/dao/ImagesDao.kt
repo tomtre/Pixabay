@@ -24,6 +24,9 @@ interface ImagesDao {
     @Query("SELECT * FROM image_entities ORDER BY popularity ASC")
     fun observeImagesByName(): PagingSource<Int, ImageEntity>
 
+    @Query("SELECT * FROM image_entities WHERE id = :id")
+    suspend fun getImage(id: Int): ImageEntity?
+
     @Query("DELETE FROM image_entities")
     suspend fun clearImages()
 }

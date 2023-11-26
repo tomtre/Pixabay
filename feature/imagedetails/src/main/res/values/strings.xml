@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_loading_image_details">En error occurred while loading image details data.</string>
+    <string name="image_details_comments">Comnents</string>
+    <string name="image_details_downloads">Downlaods</string>
+    <string name="image_details_tags">Tags</string>
+    <string name="image_details_user_name">User name</string>
+    <string name="image_details_likes">Likes</string>
+</resources>

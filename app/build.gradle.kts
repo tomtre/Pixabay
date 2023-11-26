@@ -62,7 +62,7 @@ android {
 
 dependencies {
     implementation(project(":feature:home"))
-    implementation(project(":feature:details"))
+    implementation(project(":feature:imagedetails"))
 
     implementation(project(":core:designsystem"))
     implementation(project(":core:common"))

@@ -26,7 +26,7 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
-import com.tomtre.pixabay.core.model.CustomError
+import com.tomtre.pixabay.core.model.DomainError
 import com.tomtre.pixabay.core.model.Image
 import com.tomtre.pixabay.core.ui.AppScreen
 import com.tomtre.pixabay.feature.ui.ImageListItem
@@ -108,10 +108,10 @@ private fun HomeScreen(
                     ?: loadState.append as? LoadState.Error
                     ?: loadState.prepend as? LoadState.Error
                 errorState?.let { errorLoadState ->
-                    if (errorLoadState.error is CustomError) {
+                    if (errorLoadState.error is DomainError) {
                         val message = when (val customError = errorLoadState.error) {
-                            is CustomError.ApiError -> customError.apiMessage
-                            is CustomError.UnknownError -> context.getString(R.string.error_network)
+                            is DomainError.ApiError -> customError.apiMessage
+                            is DomainError.UnknownError -> context.getString(R.string.error_network)
                             else -> ""
                         }
                         Toast.makeText(context, message, Toast.LENGTH_LONG).show()
@@ -120,27 +120,6 @@ private fun HomeScreen(
                     }
                 }
             }
-
-//    if (uiState.errorMessage == null) {
-//        PullRefreshLazyList(isLoading = uiState.isLoading, onRefresh = onRefresh, modifier = modifier) {
-//            items(uiState.images, key = { it.id }) { image ->
-//                ImageListItem(
-//                    previewUrl = image.previewURL,
-//                    userName = image.userName,
-//                    tags = image.tags,
-//                    modifier = Modifier.clickable { onImageItemClick(image.id) }
-//                )
-//                Divider()
-//            }
-//        }
-//    } else {
-//        Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = modifier) {
-//            Text(text = uiState.errorMessage.asString())
-//            Button(onClick = onRefresh, modifier = Modifier.padding(top = 10.dp)) {
-//                Text(stringResource(id = R.string.refresh))
-//            }
-//        }
-//    }
         }
     }
 }

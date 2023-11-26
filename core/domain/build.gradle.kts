@@ -1,5 +1,6 @@
 plugins {
     id("android.library")
+    id("android.hilt")
 }
 
 android {
@@ -10,11 +11,6 @@ dependencies {
     implementation(project(":core:data"))
     implementation(project(":core:model"))
 
-//    implementation(libs.hilt.android)
-//    implementation(libs.kotlinx.coroutines.android)
-//    implementation(libs.kotlinx.datetime)
-//
-//    kapt(libs.hilt.compiler)
-//
-//    testImplementation(project(":core:testing"))
+    implementation(libs.androidx.paging.common.ktx)
+    implementation(libs.androidx.paging.runtime.ktx)
 }

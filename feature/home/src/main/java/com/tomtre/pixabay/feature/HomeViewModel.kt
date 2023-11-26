@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.tomtre.core.common.MutableBehaviorFlow
-import com.tomtre.pixabay.core.data.repository.ImagesRepository
+import com.tomtre.core.domain.GetImageStreamUseCase
 import com.tomtre.pixabay.core.model.Image
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val imagesRepository: ImagesRepository
+    getImageStreamUseCase: GetImageStreamUseCase
 ) : ViewModel() {
 
     private val refreshEvents = MutableBehaviorFlow(Unit)
@@ -26,30 +26,8 @@ class HomeViewModel @Inject constructor(
     val state = _state.asStateFlow()
 
     val items: Flow<PagingData<Image>> =
-        imagesRepository.getImagesStream()
+        getImageStreamUseCase(query = null)
             .cachedIn(viewModelScope)
-
-//    init {
-//        viewModelScope.launch {
-//            refreshEvents
-//                .mapLatest {
-//                    imagesRepository.getImages("window tom")
-//                }
-//                .collect { result ->
-//                    when (result) {
-//                        is Result.ApiError -> _state.update {
-//                            it.copy(isLoading = false, errorMessage = UiText.of(result.message), images = emptyList())
-//                        }
-//
-//                        is Result.Error -> _state.update {
-//                            it.copy(isLoading = false, errorMessage = UiText.of(R.string.error_network), images = emptyList())
-//                        }
-//
-//                        is Result.Success -> _state.update { it.copy(isLoading = false, errorMessage = null, images = result.data) }
-//                    }
-//                }
-//        }
-//    }
 
     fun refresh() {
         _state.update { it.copy(isLoading = true) }

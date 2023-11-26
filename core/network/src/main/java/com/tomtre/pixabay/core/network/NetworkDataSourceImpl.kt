@@ -18,9 +18,4 @@ class NetworkDataSourceImpl @Inject constructor(
             parameter("page", page)
             parameter("per_page", loadSize)
         }
-
-    override suspend fun getImage(id: Int): Response<CustomApiErrorResponse, ImagesResponse> =
-        httpClient.get {
-            parameter("id", id)
-        }
 }

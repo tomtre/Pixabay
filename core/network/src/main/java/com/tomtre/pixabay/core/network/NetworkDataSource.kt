@@ -6,5 +6,4 @@ import com.tomtre.pixabay.core.network.util.Response
 
 interface NetworkDataSource {
     suspend fun getImages(query: String? = null, page: Int? = 1, loadSize: Int? = 20): Response<CustomApiErrorResponse, ImagesResponse>
-    suspend fun getImage(id: Int): Response<CustomApiErrorResponse, ImagesResponse>
 }
