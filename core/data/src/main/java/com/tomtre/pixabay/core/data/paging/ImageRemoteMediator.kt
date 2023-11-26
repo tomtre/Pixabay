@@ -68,7 +68,8 @@ class ImageRemoteMediator @Inject constructor(
         }
         Timber.d("ImageRemoteMediator pageNumber: $pageNumber")
 
-        val networkResponse = networkDataSource.getImages(query = query, pageNumber, state.config.pageSize)
+        val networkResponse =
+            networkDataSource.getImages(query = if (query.isNullOrBlank()) null else query, pageNumber, state.config.pageSize)
         return networkResponse
             .fold(
                 ifLeft = { handleRequestError(it) },

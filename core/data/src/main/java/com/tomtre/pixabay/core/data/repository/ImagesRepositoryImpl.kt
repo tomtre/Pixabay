@@ -13,7 +13,6 @@ import com.tomtre.pixabay.core.model.Image
 import com.tomtre.pixabay.core.model.ImageDetails
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import timber.log.Timber
 import javax.inject.Inject
 
 class ImagesRepositoryImpl @Inject constructor(
@@ -26,16 +25,11 @@ class ImagesRepositoryImpl @Inject constructor(
 
     @OptIn(ExperimentalPagingApi::class)
     override fun getImagesStream(query: String?): Flow<PagingData<Image>> {
-        Timber.d("ImagesRepositoryImpl New query: $query")
 
-        // TODO
-        val dbQuery = query?.let { "%${it.replace(' ', '%')}%" } ?: ""
-
-        val pagingSourceFactory = { imagesDao.observeImagesByName() }
         val flow = Pager(
             config = PagingConfig(pageSize = ITEMS_PER_PAGE, enablePlaceholders = false),
             remoteMediator = imageRemoteMediatorFactory.getRemoteMediator(query),
-            pagingSourceFactory = pagingSourceFactory
+            pagingSourceFactory = { imagesDao.observeImagesByName() }
         ).flow
 
         return flow.map { pagingData ->

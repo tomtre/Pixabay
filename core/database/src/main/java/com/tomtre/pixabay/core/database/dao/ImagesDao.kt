@@ -13,14 +13,6 @@ interface ImagesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(images: List<ImageEntity>)
 
-    @Query(
-        """
-           SELECT * FROM image_entities
-           WHERE tags LIKE :query
-       """
-    )
-    fun observeImagesByName(query: String): PagingSource<Int, ImageEntity>
-
     @Query("SELECT * FROM image_entities ORDER BY popularity ASC")
     fun observeImagesByName(): PagingSource<Int, ImageEntity>
 

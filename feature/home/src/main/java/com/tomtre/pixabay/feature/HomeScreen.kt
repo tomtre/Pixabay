@@ -5,12 +5,15 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Button
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -47,7 +50,12 @@ internal fun HomeRoute(
     }
 
     AppScreen {
-        HomeScreen(uiState, imageItems, viewModel::onImageItemClick, viewModel::refresh)
+        HomeScreen(
+            uiState = uiState,
+            imageItems = imageItems,
+            onImageItemClick = viewModel::onImageItemClick,
+            onSearchQueryValueChanged = viewModel::onSearchQueryTextChanged
+        )
     }
 }
 
@@ -56,13 +64,18 @@ private fun HomeScreen(
     uiState: HomeState,
     imageItems: LazyPagingItems<Image>,
     onImageItemClick: (Int) -> Unit,
-    onRefresh: () -> Unit,
+    onSearchQueryValueChanged: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier.fillMaxSize()) {
         Button(onClick = { imageItems.refresh() }) {
             Text(text = "Refresh (invalidate)")
         }
+        OutlinedTextField(
+            value = uiState.querySearch,
+            onValueChange = { onSearchQueryValueChanged(it) })
+
+        Spacer(modifier = Modifier.height(32.dp))
 
         Box(modifier = modifier.fillMaxSize()) {
             if (imageItems.loadState.refresh is LoadState.Loading) {
