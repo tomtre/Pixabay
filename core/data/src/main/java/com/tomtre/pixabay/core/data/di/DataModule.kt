@@ -1,7 +1,7 @@
 package com.tomtre.pixabay.core.data.di
 
-import com.tomtre.pixabay.core.data.repository.ImagesRepository
-import com.tomtre.pixabay.core.data.repository.ImagesRepositoryImpl
+import com.tomtre.pixabay.core.data.repository.ImageRepository
+import com.tomtre.pixabay.core.data.repository.ImageRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,5 +14,5 @@ interface DataModule {
 
     @Binds
     @Singleton
-    fun bindsImagesRepository(imagesRepositoryImpl: ImagesRepositoryImpl): ImagesRepository
+    fun bindsImagesRepository(imagesRepositoryImpl: ImageRepositoryImpl): ImageRepository
 }

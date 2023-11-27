@@ -5,7 +5,7 @@ import com.tomtre.pixabay.core.model.Image
 import com.tomtre.pixabay.core.model.ImageDetails
 import kotlinx.coroutines.flow.Flow
 
-interface ImagesRepository {
+interface ImageRepository {
 
     suspend fun getImageDetails(imageId: Int): ImageDetails?
 

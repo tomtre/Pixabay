@@ -15,10 +15,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class ImagesRepositoryImpl @Inject constructor(
+class ImageRepositoryImpl @Inject constructor(
     private val imagesDao: ImagesDao,
     private val imageRemoteMediatorFactory: ImageRemoteMediatorFactory
-) : ImagesRepository {
+) : ImageRepository {
 
     override suspend fun getImageDetails(imageId: Int): ImageDetails? =
         imagesDao.getImage(imageId)?.toDomainImageDetails()

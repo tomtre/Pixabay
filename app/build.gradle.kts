@@ -5,7 +5,6 @@ plugins {
     id("android.application.compose")
     id("android.application.flavors")
     id("android.hilt")
-    alias(libs.plugins.junit5)
 }
 
 android {
@@ -80,22 +79,19 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.navigation.compose)
 
-    testImplementation(libs.junit5.api)
-    testRuntimeOnly(libs.junit5.engine)
-
     androidTestImplementation(libs.androidx.test.ext)
     androidTestImplementation(libs.androidx.test.espresso.core)
     androidTestImplementation(libs.androidx.compose.ui.test)
 }
 
 // androidx.test is forcing JUnit, 4.12. This forces it to use 4.13
-configurations.configureEach {
-    resolutionStrategy {
-        force(libs.junit4)
-        // Temporary workaround for https://issuetracker.google.com/174733673
-        force("org.objenesis:objenesis:2.6")
-    }
-}
+// configurations.configureEach {
+//    resolutionStrategy {
+//        force(libs.junit4)
+//        // Temporary workaround for https://issuetracker.google.com/174733673
+//        force("org.objenesis:objenesis:2.6")
+//    }
+// }
 
 val checkReleaseVersion by tasks.registering {
     doLast {
